@@ -43,6 +43,10 @@ dependencies:
   cloud_firestore: ^4.8.2
   flutter_secure_storage: ^8.0.0
   mocktail: ^0.3.0
+  bolso_organizado_calculator:
+    git:
+      url: https://github.com/mchalita/bolso-organizado-calculator.git
+      ref: main
 
 dev_dependencies:
   flutter_test:

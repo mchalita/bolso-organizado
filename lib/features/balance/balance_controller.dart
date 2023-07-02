@@ -1,6 +1,7 @@
 import 'package:bolso_organizado/models/balances_model.dart';
 import 'package:bolso_organizado/models/transaction_model.dart';
 import 'package:bolso_organizado/repositories/transaction_repository.dart';
+import 'package:bolso_organizado_calculator/bolso_organizado_calculator.dart';
 import 'package:flutter/foundation.dart';
 
 import 'balance_state.dart';
@@ -33,6 +34,7 @@ class BalanceController extends ChangeNotifier {
 
     try{
       final List<TransactionModel> listTransactionModel = [];
+      final List<double> listValue = [];
       final response = await transactionRepository.getAllByLoggedUser();
       final docs = response.docs;
 
@@ -40,19 +42,14 @@ class BalanceController extends ChangeNotifier {
         listTransactionModel.add(TransactionModel.fromJson(doc.id, doc.data()));
       }
 
-      double totalIncome = 0;
-      double totalOutcome = 0;
-      double totalBalance = 0;
-
       for(var transactionModel in listTransactionModel){
-        if(transactionModel.value > 0){
-          totalIncome += transactionModel.value;
-        }else{
-          totalOutcome += transactionModel.value;
-        }
-
-        totalBalance += transactionModel.value;
+        listValue.add(transactionModel.value);
       }
+
+      Calculator calculator = Calculator();
+      double totalIncome = calculator.calcularRenda(listValue);
+      double totalOutcome = calculator.calcularDespesa(listValue);
+      double totalBalance = calculator.calcularTotal(listValue);
 
       _balances = BalancesModel.fromValues(totalIncome, totalOutcome, totalBalance);
       _changeState(BalanceStateSuccess());
