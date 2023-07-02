@@ -75,22 +75,6 @@ class BalanceCardWidget extends StatelessWidget {
                         })
                   ],
                 ),
-                GestureDetector(
-                  onTap: () => log('options'),
-                  child: PopupMenuButton(
-                    padding: EdgeInsets.zero,
-                    child: const Icon(
-                      Icons.more_horiz,
-                      color: AppColors.white,
-                    ),
-                    itemBuilder: (context) => [
-                      const PopupMenuItem(
-                        height: 24.0,
-                        child: Text("Item 1"),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
             SizedBox(height: 36.h),

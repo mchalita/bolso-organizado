@@ -1,7 +1,6 @@
 import 'package:bolso_organizado/commons/constants/app_colors.dart';
 import 'package:bolso_organizado/commons/constants/app_text_styles.dart';
 import 'package:bolso_organizado/commons/widgets/greetings_widget.dart';
-import 'package:bolso_organizado/commons/widgets/notification_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../extensions/extensions.dart';
@@ -31,11 +30,10 @@ class _AppHeaderState extends State<AppHeader> {
             color: AppColors.white,
           ),
         )
-      : Row(
+      : const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             GreetingsWidget(),
-            NotificationWidget(),
           ],
         );
 

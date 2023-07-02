@@ -56,6 +56,13 @@ class BalancesModel {
   factory BalancesModel.fromJson(String source) =>
       BalancesModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
+  factory BalancesModel.fromValues(double income, double outcome, double balance) {
+    return BalancesModel(
+      totalIncome: income,
+      totalOutcome: outcome,
+      totalBalance: balance,);
+  }
+
   BalancesModel copyWith({
     double? totalIncome,
     double? totalOutcome,
