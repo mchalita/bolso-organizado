@@ -33,7 +33,7 @@ class BalanceController extends ChangeNotifier {
 
     try{
       final List<TransactionModel> listTransactionModel = [];
-      final response = await transactionRepository.getAll();
+      final response = await transactionRepository.getAllByLoggedUser();
       final docs = response.docs;
 
       for(var doc in docs){

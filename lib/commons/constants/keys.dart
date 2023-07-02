@@ -32,5 +32,5 @@ class Keys {
   static const profilePageBottomAppBarItem = Key('profile_page_bottom_app_bar_item');
 
   // // Profile page
-  // static const profilePagelogoutButton = Key('profile_page_logout_button');
+  static const profilePagelogoutButton = Key('profile_page_logout_button');
 }

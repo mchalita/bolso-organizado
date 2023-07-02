@@ -22,7 +22,7 @@ class CustomTheme {
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         foregroundColor: AppColors.iceWhite,
-        backgroundColor: AppColors.green,
+        backgroundColor: AppColors.blue,
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
@@ -37,7 +37,7 @@ class CustomTheme {
       inputDecorationTheme: InputDecorationTheme(
         labelStyle:
             AppTextStyles.inputLabelText.copyWith(color: AppColors.grey),
-        hintStyle: AppTextStyles.inputHintText.copyWith(color: AppColors.green),
+        hintStyle: AppTextStyles.inputHintText.copyWith(color: AppColors.blue),
         focusedBorder: defaultBorder,
         enabledBorder: defaultBorder,
         disabledBorder: defaultBorder,

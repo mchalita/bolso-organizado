@@ -54,13 +54,15 @@ class TransactionController extends ChangeNotifier {
     }
   }
 
-  // Future<void> deleteTransaction(TransactionModel transaction) async {
-  //   _changeState(TransactionStateLoading());
-  //   final result = await transactionService.deleteTransaction(transaction);
-  //
-  //   result.fold(
-  //     (error) => _changeState(TransactionStateError(message: error.message)),
-  //     (data) => _changeState(TransactionStateSuccess()),
-  //   );
-  // }
+  Future<void> deleteTransaction(TransactionModel transaction) async {
+    _changeState(TransactionStateLoading());
+
+    try{
+      await transactionService.delete(transaction.id!);
+
+      _changeState(TransactionStateSuccess());
+    }catch(error){
+      _changeState(TransactionStateError(message: error.toString()));
+    }
+  }
 }

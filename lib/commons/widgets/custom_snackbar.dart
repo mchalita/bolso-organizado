@@ -16,7 +16,7 @@ mixin CustomSnackBar<T extends StatefulWidget> on State<T> {
         case SnackBarType.error:
           return AppColors.error;
         case SnackBarType.success:
-          return AppColors.green;
+          return AppColors.blue;
         case SnackBarType.warning:
           return AppColors.notification;
         case SnackBarType.general:

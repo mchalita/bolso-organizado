@@ -2,6 +2,7 @@ import 'package:bolso_organizado/commons/constants/app_colors.dart';
 import 'package:bolso_organizado/commons/constants/keys.dart';
 import 'package:bolso_organizado/commons/widgets/custom_bottom_app_bar.dart';
 import 'package:bolso_organizado/features/balance/balance.dart';
+import 'package:bolso_organizado/features/profile/profile_page.dart';
 import 'package:bolso_organizado/features/transaction/transaction.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +47,7 @@ class _HomePageViewState extends State<HomePageView> {
           HomePage(),
           // StatsPage(),
           // WalletPage(),
-          // ProfilePage(),
+          ProfilePage(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -67,8 +68,9 @@ class _HomePageViewState extends State<HomePageView> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: CustomBottomAppBar(
         controller: homeController.pageController,
-        selectedItemColor: AppColors.green,
+        selectedItemColor: AppColors.blue,
         children: [
+          CustomBottomAppBarItem.empty(),
           CustomBottomAppBarItem(
             key: Keys.homePageBottomAppBarItem,
             label: 'home',
@@ -78,34 +80,17 @@ class _HomePageViewState extends State<HomePageView> {
               0,
             ),
           ),
-          CustomBottomAppBarItem(
-            key: Keys.statsPageBottomAppBarItem,
-            label: 'stats',
-            primaryIcon: Icons.analytics,
-            secondaryIcon: Icons.analytics_outlined,
-            onPressed: () => homeController.pageController.jumpToPage(
-              1,
-            ),
-          ),
           CustomBottomAppBarItem.empty(),
-          CustomBottomAppBarItem(
-            key: Keys.walletPageBottomAppBarItem,
-            label: 'wallet',
-            primaryIcon: Icons.account_balance_wallet,
-            secondaryIcon: Icons.account_balance_wallet_outlined,
-            onPressed: () => homeController.pageController.jumpToPage(
-              2,
-            ),
-          ),
           CustomBottomAppBarItem(
             key: Keys.profilePageBottomAppBarItem,
             label: 'profile',
             primaryIcon: Icons.person,
             secondaryIcon: Icons.person_outline,
             onPressed: () => homeController.pageController.jumpToPage(
-              3,
+              1,
             ),
           ),
+          CustomBottomAppBarItem.empty(),
         ],
       ),
     );

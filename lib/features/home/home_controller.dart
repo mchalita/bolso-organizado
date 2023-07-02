@@ -34,7 +34,7 @@ class HomeController extends ChangeNotifier {
     _changeState(HomeStateLoading());
 
     try{
-      _transactions = await transactionService.getAll();
+      _transactions = await transactionService.getAllByLoggedUser();
 
       _changeState(HomeStateSuccess());
     }catch(error){

@@ -1,14 +1,13 @@
-import 'dart:convert';
 import 'package:bolso_organizado/models/transaction_model.dart';
 import 'package:bolso_organizado/repositories/transaction_repository.dart';
 
 class TransactionService {
   final TransactionRepository _transactionRepository = TransactionRepository();
 
-  Future<List<TransactionModel>> getAll() async {
+  Future<List<TransactionModel>> getAllByLoggedUser() async {
     try {
       final List<TransactionModel> listTransactionModel = [];
-      final response = await _transactionRepository.getAll();
+      final response = await _transactionRepository.getAllByLoggedUser();
       final docs = response.docs;
 
       for(var doc in docs){

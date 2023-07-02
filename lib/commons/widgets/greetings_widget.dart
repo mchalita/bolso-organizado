@@ -13,15 +13,10 @@ class GreetingsWidget extends StatelessWidget {
         MediaQuery.of(context).size.width < 360 ? 0.7 : 1.0;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Olá,',
-          textScaleFactor: textScaleFactor,
-          style: AppTextStyles.smallText.apply(color: AppColors.white),
-        ),
-        Text(
-          'Usuario',
+          'Bolso Organizado',
           textScaleFactor: textScaleFactor,
           style: AppTextStyles.mediumText20.apply(color: AppColors.white),
         ),

@@ -9,13 +9,8 @@ abstract class Repository {
 
   Repository(this._collection);
 
-  Future<QuerySnapshot<Map<String, dynamic>>> getAll() {
-    return db.collection(_collection).get();
-  }
-
-  //TODO testar
   Future<QuerySnapshot<Map<String, dynamic>>> getAllByLoggedUser() {
-    return db.collection(_collection).doc(auth.currentUser?.uid).collection("minhas_tarefas").get();
+    return db.collection(_collection).where('user_id', isEqualTo: auth.currentUser?.uid).get();
   }
 
   Future<DocumentReference<Map<String, dynamic>>> save(Map<String, dynamic> data) {

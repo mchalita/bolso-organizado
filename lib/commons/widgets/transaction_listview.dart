@@ -105,11 +105,11 @@ class _TransactionListViewState extends State<TransactionListView>
                 children: [
                   IconButton(
                     icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                    color: AppColors.green,
+                    color: AppColors.blue,
                     onPressed: _goToPreviousMonth,
                   ),
                   TabBar(
-                    labelColor: AppColors.green,
+                    labelColor: AppColors.blue,
                     labelStyle: AppTextStyles.mediumText16w600,
                     controller: _tabController,
                     isScrollable: true,
@@ -121,7 +121,7 @@ class _TransactionListViewState extends State<TransactionListView>
                   ),
                   IconButton(
                     icon: const Icon(Icons.arrow_forward_ios_outlined),
-                    color: AppColors.green,
+                    color: AppColors.blue,
                     onPressed: _goToNextMonth,
                   ),
                 ],
@@ -161,7 +161,7 @@ class _TransactionListViewState extends State<TransactionListView>
                 ),
                 onDismissed: (direction) async {
                   if (confirmDelete!) {
-                    //await transactionController.deleteTransaction(item);
+                    await transactionController.deleteTransaction(item);
                     if (!mounted) return;
                     widget.onChange();
                   }
@@ -169,18 +169,18 @@ class _TransactionListViewState extends State<TransactionListView>
                 confirmDismiss: (direction) async {
                   confirmDelete = await showCustomModalBottomSheet(
                     context: context,
-                    content: 'Confirm delete transaction',
+                    content: 'Tem certeza que deseja deletar?',
                     actions: [
                       Flexible(
                         child: PrimaryButton(
-                          text: 'Cancel',
+                          text: 'Cancelar',
                           onPressed: () => Navigator.pop(context),
                         ),
                       ),
                       const SizedBox(width: 16.0),
                       Flexible(
                         child: PrimaryButton(
-                          text: 'Confirm',
+                          text: 'Confirmar',
                           onPressed: () {
                             if (mounted) {
                               Navigator.pop(context, true);

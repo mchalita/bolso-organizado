@@ -70,23 +70,14 @@ class _HomePageState extends State<HomePage> with CustomModalSheetMixin {
             bottom: 0,
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Transações',
                         style: AppTextStyles.mediumText18,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          homeController.pageController.jumpToPage(2);
-                        },
-                        child: const Text(
-                          'Ver mais',
-                          style: AppTextStyles.inputLabelText,
-                        ),
                       ),
                     ],
                   ),
@@ -97,7 +88,7 @@ class _HomePageState extends State<HomePage> with CustomModalSheetMixin {
                     builder: (context, _) {
                       if (homeController.state is HomeStateLoading) {
                         return const CustomCircularProgressIndicator(
-                          color: AppColors.green,
+                          color: AppColors.blue,
                         );
                       }
                       if (homeController.state is HomeStateError) {
