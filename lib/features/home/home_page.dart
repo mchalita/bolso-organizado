@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> with CustomModalSheetMixin {
   void initState() {
     super.initState();
 
-    homeController.getLatestTransactions();
+    homeController.getAllTransactions();
     balanceController.getBalances();
 
     homeController.addListener(() {
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> with CustomModalSheetMixin {
         showCustomModalBottomSheet(
           context: context,
           content: (homeController.state as HomeStateError).message,
-          buttonText: 'Go to login',
+          buttonText: 'Ir para  login',
           isDismissible: false,
           onPressed: () => Navigator.pushNamedAndRemoveUntil(
             context,
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> with CustomModalSheetMixin {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        'Transaction History',
+                        'Transações',
                         style: AppTextStyles.mediumText18,
                       ),
                       GestureDetector(
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> with CustomModalSheetMixin {
                           homeController.pageController.jumpToPage(2);
                         },
                         child: const Text(
-                          'See all',
+                          'Ver mais',
                           style: AppTextStyles.inputLabelText,
                         ),
                       ),
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> with CustomModalSheetMixin {
                           itemCount: homeController.transactions.length,
                           onChange: () {
                             homeController
-                                .getLatestTransactions()
+                                .getAllTransactions()
                                 .then((_) => balanceController.getBalances());
                           },
                         );

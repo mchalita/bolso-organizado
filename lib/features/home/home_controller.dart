@@ -1,15 +1,15 @@
 import 'package:bolso_organizado/models/transaction_model.dart';
-import 'package:bolso_organizado/repositories/repositories.dart';
+import 'package:bolso_organizado/services/transaction_service.dart';
 import 'package:flutter/material.dart';
 
 import 'home_state.dart';
 
 class HomeController extends ChangeNotifier {
   HomeController({
-    required this.transactionRepository,
+    required this.transactionService,
   });
 
-  final TransactionRepository transactionRepository;
+  final TransactionService transactionService;
 
   HomeState _state = HomeStateInitial();
 
@@ -30,21 +30,15 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getLatestTransactions() async {
+  Future<void> getAllTransactions() async {
     _changeState(HomeStateLoading());
 
-    final result = await transactionRepository.getTransactions(
-      limit: 5,
-      latest: true,
-    );
+    try{
+      _transactions = await transactionService.getAll();
 
-    result.fold(
-      (error) => _changeState(HomeStateError(message: error.message)),
-      (data) {
-        _transactions = data;
-
-        _changeState(HomeStateSuccess());
-      },
-    );
+      _changeState(HomeStateSuccess());
+    }catch(error){
+      _changeState(HomeStateError(message: error.toString()));
+    }
   }
 }

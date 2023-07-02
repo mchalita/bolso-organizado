@@ -54,7 +54,7 @@ class _HomePageViewState extends State<HomePageView> {
           final result = await Navigator.pushNamed(context, '/transaction');
           if (result != null) {
             if (homeController.pageController.page == 0) {
-              homeController.getLatestTransactions();
+              homeController.getAllTransactions();
             }
             if (homeController.pageController.page == 2) {
               //walletController.getAllTransactions();

@@ -140,7 +140,7 @@ class _TransactionListViewState extends State<TransactionListView>
               final color =
                   item.value.isNegative ? AppColors.outcome : AppColors.income;
 
-              final value = "\$${item.value.toStringAsFixed(2)}";
+              final value = "R\$${item.value.toStringAsFixed(2)}".replaceAll(".", ",");
 
               if (widget.showDate && !isCurrentDate) {
                 return const SizedBox.shrink();
@@ -161,7 +161,7 @@ class _TransactionListViewState extends State<TransactionListView>
                 ),
                 onDismissed: (direction) async {
                   if (confirmDelete!) {
-                    await transactionController.deleteTransaction(item);
+                    //await transactionController.deleteTransaction(item);
                     if (!mounted) return;
                     widget.onChange();
                   }
@@ -231,11 +231,6 @@ class _TransactionListViewState extends State<TransactionListView>
                       Text(
                         value,
                         style: AppTextStyles.mediumText18.apply(color: color),
-                      ),
-                      Text(
-                        item.status ? 'done' : 'pending',
-                        style: AppTextStyles.smallText13
-                            .apply(color: AppColors.lightGrey),
                       ),
                     ],
                   ),

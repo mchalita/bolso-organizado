@@ -18,7 +18,7 @@ class CustomTheme {
 
     return ThemeData(
       colorScheme: const ColorScheme.light(
-        primary: AppColors.darkGreen,
+        primary: AppColors.darkBlue,
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         foregroundColor: AppColors.iceWhite,
@@ -26,7 +26,7 @@ class CustomTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: AppColors.darkGreen,
+          foregroundColor: AppColors.darkBlue,
         ),
       ),
       tabBarTheme: const TabBarTheme(

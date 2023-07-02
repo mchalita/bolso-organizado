@@ -29,7 +29,7 @@ class BalanceCardWidget extends StatelessWidget {
           vertical: 32.h,
         ),
         decoration: const BoxDecoration(
-          color: AppColors.darkGreen,
+          color: AppColors.darkBlue,
           borderRadius: BorderRadius.all(
             Radius.circular(16.0),
           ),
@@ -45,7 +45,7 @@ class BalanceCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Total Balance',
+                      'Total',
                       textScaleFactor: textScaleFactor,
                       style: AppTextStyles.mediumText16w600
                           .apply(color: AppColors.white),
@@ -65,7 +65,7 @@ class BalanceCardWidget extends StatelessWidget {
                             constraints:
                                 BoxConstraints.tightFor(width: 250.0.w),
                             child: Text(
-                              '\$${controller.balances.totalBalance.toStringAsFixed(2)}',
+                              'R\$${controller.balances.totalBalance.toStringAsFixed(2)}',
                               textScaleFactor: textScaleFactor,
                               style: AppTextStyles.mediumText30
                                   .apply(color: AppColors.white),
@@ -188,7 +188,7 @@ class TransactionValueWidget extends StatelessWidget {
                   return ConstrainedBox(
                     constraints: BoxConstraints.tightFor(width: 120.0.w),
                     child: Text(
-                      '\$${amount.toStringAsFixed(2)}',
+                      'R\$${amount.toStringAsFixed(2)}',
                       textScaleFactor: textScaleFactor,
                       style: AppTextStyles.mediumText20
                           .apply(color: AppColors.white),

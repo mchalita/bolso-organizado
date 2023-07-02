@@ -1,15 +1,5 @@
-import 'dart:convert';
-
 import 'package:bolso_organizado/commons/extensions/extensions.dart';
 import 'package:uuid/uuid.dart';
-
-enum SyncStatus {
-  none,
-  synced,
-  create,
-  update,
-  delete,
-}
 
 class TransactionModel {
   TransactionModel({
@@ -17,22 +7,18 @@ class TransactionModel {
     required this.description,
     required this.value,
     required this.date,
-    required this.status,
     required this.createdAt,
     this.id,
     this.userId,
-    this.syncStatus = SyncStatus.synced,
   });
 
   final String description;
   final String category;
   final double value;
   final int date;
-  final bool status;
   final int createdAt;
   final String? id;
   final String? userId;
-  final SyncStatus? syncStatus;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -42,32 +28,12 @@ class TransactionModel {
       'date': DateTime.fromMillisecondsSinceEpoch(date).formatISOTime,
       'created_at':
           DateTime.fromMillisecondsSinceEpoch(createdAt).formatISOTime,
-      'status': status,
       'id': id ?? const Uuid().v4(),
       'user_id': userId,
-    };
-  }
-
-  Map<String, dynamic> toDatabase() {
-    return <String, dynamic>{
-      'description': description,
-      'category': category,
-      'value': value,
-      'date': DateTime.fromMillisecondsSinceEpoch(date).toIso8601String(),
-      'created_at':
-          DateTime.fromMillisecondsSinceEpoch(createdAt).toIso8601String(),
-      'status': status.toInt(),
-      'id': id ?? const Uuid().v4(),
-      'user_id': userId,
-      'sync_status': syncStatus!.name,
     };
   }
 
   factory TransactionModel.fromMap(Map<String, dynamic> map) {
-    bool parsedStatus = false;
-    if (map['status'] is int) {
-      parsedStatus = map['status'] == 0 ? false : true;
-    }
     return TransactionModel(
       description: map['description'] as String,
       category: map['category'] as String,
@@ -75,20 +41,29 @@ class TransactionModel {
       date: DateTime.parse(map['date'] as String).millisecondsSinceEpoch,
       createdAt:
           DateTime.parse(map['created_at'] as String).millisecondsSinceEpoch,
-      status: map['status'] is int ? parsedStatus : map['status'] as bool,
       id: map['id'] as String?,
       userId: map['user_id'] as String?,
-      syncStatus: SyncStatus.values.firstWhere(
-        (e) => e.name == map['sync_status'],
-        orElse: () => SyncStatus.none,
-      ),
     );
   }
 
-  String toJson() => json.encode(toMap());
+  Map<String, dynamic> toJson() => {
+    'description': description,
+    'category': category,
+    'value': value,
+    'date': DateTime.fromMillisecondsSinceEpoch(date).formatISOTime,
+    'created_at':
+    DateTime.fromMillisecondsSinceEpoch(createdAt).formatISOTime,
+    'id': id ?? const Uuid().v4(),
+    'user_id': userId,
+  };
 
-  factory TransactionModel.fromJson(String source) =>
-      TransactionModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  TransactionModel.fromJson(String this.id, Map<String, dynamic> json)
+      : description = json['description'],
+        category = json['category'],
+        value = json['value'],
+        date = DateTime.parse(json['date'].split(".").first).millisecondsSinceEpoch,
+        createdAt = DateTime.parse(json['created_at'].split(".").first).millisecondsSinceEpoch,
+        userId = json['user_id'];
 
   @override
   bool operator ==(covariant TransactionModel other) {
@@ -98,11 +73,9 @@ class TransactionModel {
         other.category == category &&
         other.value == value &&
         other.date == date &&
-        other.status == status &&
         other.id == id &&
         other.userId == userId &&
-        other.createdAt == createdAt &&
-        other.syncStatus == syncStatus;
+        other.createdAt == createdAt;
   }
 
   @override
@@ -112,10 +85,8 @@ class TransactionModel {
         value.hashCode ^
         date.hashCode ^
         createdAt.hashCode ^
-        status.hashCode ^
         id.hashCode ^
-        userId.hashCode ^
-        syncStatus.hashCode;
+        userId.hashCode;
   }
 
   TransactionModel copyWith({
@@ -127,18 +98,15 @@ class TransactionModel {
     int? createdAt,
     String? id,
     String? userId,
-    SyncStatus? syncStatus,
   }) {
     return TransactionModel(
       description: description ?? this.description,
       category: category ?? this.category,
       value: value ?? this.value,
       date: date ?? this.date,
-      status: status ?? this.status,
       createdAt: createdAt ?? this.createdAt,
       id: id ?? this.id ?? const Uuid().v4(),
       userId: userId ?? this.userId,
-      syncStatus: syncStatus ?? this.syncStatus,
     );
   }
 }

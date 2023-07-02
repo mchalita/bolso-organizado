@@ -1,7 +1,7 @@
 import 'package:bolso_organizado/models/balances_model.dart';
+import 'package:bolso_organizado/repositories/transaction_repository.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../repositories/repositories.dart';
 import 'balance_state.dart';
 
 class BalanceController extends ChangeNotifier {
@@ -30,15 +30,15 @@ class BalanceController extends ChangeNotifier {
   Future<void> getBalances() async {
     _changeState(BalanceStateLoading());
 
-    final result = await transactionRepository.getBalances();
-
-    result.fold(
-      (error) => _changeState(BalanceStateError()),
-      (data) {
-        _balances = data;
-
-        _changeState(BalanceStateSuccess());
-      },
-    );
+    // final result = await transactionRepository.getBalances();
+    //
+    // result.fold(
+    //   (error) => _changeState(BalanceStateError()),
+    //   (data) {
+    //     _balances = data;
+    //
+    //     _changeState(BalanceStateSuccess());
+    //   },
+    // );
   }
 }

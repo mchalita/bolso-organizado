@@ -1,5 +1,5 @@
 import 'package:bolso_organizado/services/auth_service.dart';
-
+import 'package:bolso_organizado/services/secure_storage.dart';
 import 'package:flutter/foundation.dart';
 
 import 'sign_in_state.dart';
@@ -7,9 +7,11 @@ import 'sign_in_state.dart';
 class SignInController extends ChangeNotifier {
   SignInController({
     required this.authService,
+    required this.secureStorageService,
   });
 
   final AuthService authService;
+  final SecureStorageService secureStorageService;
 
   SignInState _state = SignInStateInitial();
 
@@ -33,7 +35,14 @@ class SignInController extends ChangeNotifier {
 
     result.fold(
       (error) => _changeState(SignInStateError(error.message)),
-      (data) => _changeState(SignInStateSuccess()),
+      (data) async {
+        await secureStorageService.write(
+          key: "CURRENT_USER",
+          value: data.toJson(),
+        );
+
+        _changeState(SignInStateSuccess());
+      },
     );
   }
 }

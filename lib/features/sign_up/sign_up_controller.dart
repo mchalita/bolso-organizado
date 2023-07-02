@@ -1,3 +1,4 @@
+import 'package:bolso_organizado/services/secure_storage.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../services/auth_service.dart';
@@ -6,9 +7,11 @@ import 'sign_up_state.dart';
 class SignUpController extends ChangeNotifier {
   SignUpController({
     required this.authService,
+    required this.secureStorageService,
   });
 
   final AuthService authService;
+  final SecureStorageService secureStorageService;
 
   SignUpState _state = SignUpStateInitial();
 
@@ -34,7 +37,14 @@ class SignUpController extends ChangeNotifier {
 
     result.fold(
       (error) => _changeState(SignUpStateError(error.message)),
-      (data) => _changeState(SignUpStateSuccess()),
+      (data) async {
+        await secureStorageService.write(
+        key: "CURRENT_USER",
+        value: data.toJson(),
+        );
+
+        _changeState(SignUpStateSuccess());
+      },
     );
   }
 }
