@@ -1,5 +1,9 @@
 import 'package:bolso_organizado/commons/constants/named_routes.dart';
 import 'package:bolso_organizado/commons/themes/default_theme.dart';
+import 'package:bolso_organizado/features/home/home_page_view.dart';
+import 'package:bolso_organizado/features/onboarding/onboarding_page.dart';
+import 'package:bolso_organizado/features/sign_in/sign_in_page.dart';
+import 'package:bolso_organizado/features/sign_up/sign_up_page.dart';
 import 'package:bolso_organizado/features/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -10,13 +14,13 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: CustomTheme().defaultTheme,
-      initialRoute: NamedRoute.SPLASH,
+      initialRoute: NamedRoute.INITIAL,
       routes: {
-        //NamedRoute.INITIAL: (context) => const OnboardingPage(),
-        NamedRoute.SPLASH: (context) => const SplashPage(),
-        // NamedRoute.SIGN_UP: (context) => const SignUpPage(),
-        // NamedRoute.SIGN_IN: (context) => const SignInPage(),
-        // NamedRoute.HOME: (context) => const HomePageView(),
+        NamedRoute.INITIAL: (context) => const OnboardingPage(),
+        //NamedRoute.SPLASH: (context) => const SplashPage(),
+        NamedRoute.SIGN_UP: (context) => const SignUpPage(),
+        NamedRoute.SIGN_IN: (context) => const SignInPage(),
+        NamedRoute.HOME: (context) => const HomePageView(),
         // NamedRoute.STATS: (context) => const StatsPage(),
         // NamedRoute.WALLET: (context) => const WalletPage(),
         // NamedRoute.PROFILE: (context) => const ProfilePage(),

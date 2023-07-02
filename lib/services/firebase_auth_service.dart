@@ -37,6 +37,17 @@ class FirebaseAuthService implements AuthService {
       //   "displayName": name,
       // });
 
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      User? user = userCredential.user;
+
+      if (user != null) {
+        await user.updateDisplayName(name);
+      }
+
       final result = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,

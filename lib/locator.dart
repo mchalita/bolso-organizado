@@ -1,4 +1,10 @@
-import 'package:bolso_organizado/features/splash/splash_controller.dart';
+import 'package:bolso_organizado/features/balance/balance.dart';
+import 'package:bolso_organizado/features/home/home_controller.dart';
+import 'package:bolso_organizado/features/sign_in/sign_in_controller.dart';
+import 'package:bolso_organizado/features/sign_up/sign_up_controller.dart';
+import 'package:bolso_organizado/features/transaction/transaction.dart';
+import 'package:bolso_organizado/repositories/repositories.dart';
+import 'package:bolso_organizado/repositories/transaction_repository.dart';
 import 'package:bolso_organizado/services/auth_service.dart';
 import 'package:bolso_organizado/services/firebase_auth_service.dart';
 import 'package:get_it/get_it.dart';
@@ -13,48 +19,29 @@ void setupDependencies() {
 
   //Register Repositories
 
-  // locator.registerFactory<TransactionRepository>(
-  //   () => TransactionRepositoryImpl(
-  //     databaseService: locator.get<DatabaseService>(),
-  //     syncService: locator.get<SyncService>(),
-  //   ),
-  // );
+  locator.registerFactory<TransactionRepository>(
+    () => TransactionRepositoryImpl(),
+  );
 
   //Register Controllers
 
-  locator.registerFactory<SplashController>(
-    () => SplashController(
-      // secureStorageService: const SecureStorageService(),
-      // syncService: locator.get<SyncService>(),
+  locator.registerFactory<SignInController>(
+    () => SignInController(
+      authService: locator.get<AuthService>(),
     ),
   );
 
-  // locator.registerFactory<SignInController>(
-  //   () => SignInController(
-  //     authService: locator.get<AuthService>(),
-  //     secureStorageService: const SecureStorageService(),
-  //     syncService: locator.get<SyncService>(),
-  //   ),
-  // );
-  //
-  // locator.registerFactory<SignUpController>(
-  //   () => SignUpController(
-  //     authService: locator.get<AuthService>(),
-  //     secureStorageService: const SecureStorageService(),
-  //   ),
-  // );
-  //
-  // locator.registerLazySingleton<HomeController>(
-  //   () => HomeController(
-  //     transactionRepository: locator.get<TransactionRepository>(),
-  //     syncService: SyncService(
-  //       connectionService: const ConnectionService(),
-  //       databaseService: locator.get<DatabaseService>(),
-  //       graphQLService: locator.get<GraphQLService>(),
-  //       secureStorageService: const SecureStorageService(),
-  //     ),
-  //   ),
-  // );
+  locator.registerFactory<SignUpController>(
+    () => SignUpController(
+      authService: locator.get<AuthService>(),
+    ),
+  );
+
+  locator.registerLazySingleton<HomeController>(
+    () => HomeController(
+      transactionRepository: locator.get<TransactionRepository>(),
+    ),
+  );
   //
   // locator.registerLazySingleton<WalletController>(
   //   () => WalletController(
@@ -62,16 +49,15 @@ void setupDependencies() {
   //   ),
   // );
   //
-  // locator.registerLazySingleton<BalanceController>(
-  //   () => BalanceController(
-  //     transactionRepository: locator.get<TransactionRepository>(),
-  //   ),
-  // );
-  //
-  // locator.registerLazySingleton<TransactionController>(
-  //   () => TransactionController(
-  //     transactionRepository: locator.get<TransactionRepository>(),
-  //     storage: const SecureStorageService(),
-  //   ),
-  // );
+  locator.registerLazySingleton<BalanceController>(
+    () => BalanceController(
+      transactionRepository: locator.get<TransactionRepository>(),
+    ),
+  );
+
+  locator.registerLazySingleton<TransactionController>(
+    () => TransactionController(
+      transactionRepository: locator.get<TransactionRepository>(),
+    ),
+  );
 }

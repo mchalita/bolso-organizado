@@ -21,7 +21,6 @@ class SplashController extends ChangeNotifier {
   }
 
   Future<void> isUserLogged() async {
-    //TODO revisitar
     // final result = await secureStorageService.readOne(key: "CURRENT_USER");
     // if (result != null) {
     //   _changeState(AuthenticatedUser(message: 'syncing data from server'));
@@ -36,7 +35,9 @@ class SplashController extends ChangeNotifier {
     // } else {
     //   _changeState(UnauthenticatedUser());
     // }
+    //
+    // _changeState(AuthenticatedUser(isReady: true));
 
-    _changeState(AuthenticatedUser(isReady: true));
+    _changeState(UnauthenticatedUser());
   }
 }

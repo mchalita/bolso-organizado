@@ -12,7 +12,7 @@ class CustomTheme {
   ThemeData get defaultTheme {
     const defaultBorder = OutlineInputBorder(
       borderSide: BorderSide(
-        color: AppColors.greenOne,
+        color: AppColors.blueOne,
       ),
     );
 
