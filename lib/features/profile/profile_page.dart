@@ -1,4 +1,5 @@
 import 'package:bolso_organizado/commons/constants/keys.dart';
+import 'package:bolso_organizado/commons/constants/named_routes.dart';
 import 'package:bolso_organizado/services/auth_service.dart';
 import 'package:bolso_organizado/services/secure_storage.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> with AutomaticKeepAliveClient
                 await locator.get<AuthService>().signOut();
                 await const SecureStorageService().deleteAll();
                 if (mounted) {
-                  Navigator.popUntil(context, ModalRoute.withName('/'));
+                  Navigator.pushReplacementNamed(context, NamedRoute.INITIAL);
                 }
               },
               child: const Text("Sair"),
