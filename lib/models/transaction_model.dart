@@ -3,6 +3,7 @@ import 'package:uuid/uuid.dart';
 
 class TransactionModel {
   TransactionModel({
+    required this.localization,
     required this.category,
     required this.description,
     required this.value,
@@ -12,6 +13,7 @@ class TransactionModel {
     this.userId,
   });
 
+  final String localization;
   final String description;
   final String category;
   final double value;
@@ -22,6 +24,7 @@ class TransactionModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'localization': localization,
       'description': description,
       'category': category,
       'value': value,
@@ -35,6 +38,7 @@ class TransactionModel {
 
   factory TransactionModel.fromMap(Map<String, dynamic> map) {
     return TransactionModel(
+      localization: map['localization'] as String,
       description: map['description'] as String,
       category: map['category'] as String,
       value: double.tryParse(map['value'].toString()) ?? 0,
@@ -47,6 +51,7 @@ class TransactionModel {
   }
 
   Map<String, dynamic> toJson() => {
+    'localization': localization,
     'description': description,
     'category': category,
     'value': value,
@@ -58,7 +63,8 @@ class TransactionModel {
   };
 
   TransactionModel.fromJson(String this.id, Map<String, dynamic> json)
-      : description = json['description'],
+      : localization = json['localization'],
+        description = json['description'],
         category = json['category'],
         value = json['value'],
         date = DateTime.parse(json['date'].split(".").first).millisecondsSinceEpoch,
@@ -69,7 +75,8 @@ class TransactionModel {
   bool operator ==(covariant TransactionModel other) {
     if (identical(this, other)) return true;
 
-    return other.description == description &&
+    return other.localization == localization &&
+        other.description == description &&
         other.category == category &&
         other.value == value &&
         other.date == date &&
@@ -80,7 +87,8 @@ class TransactionModel {
 
   @override
   int get hashCode {
-    return description.hashCode ^
+    return localization.hashCode ^
+        description.hashCode ^
         category.hashCode ^
         value.hashCode ^
         date.hashCode ^
@@ -90,6 +98,7 @@ class TransactionModel {
   }
 
   TransactionModel copyWith({
+    String? localization,
     String? description,
     String? category,
     double? value,
@@ -100,6 +109,7 @@ class TransactionModel {
     String? userId,
   }) {
     return TransactionModel(
+      localization: localization ?? this.localization,
       description: description ?? this.description,
       category: category ?? this.category,
       value: value ?? this.value,

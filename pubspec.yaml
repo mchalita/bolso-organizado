@@ -47,6 +47,7 @@ dependencies:
     git:
       url: https://github.com/mchalita/bolso-organizado-calculator.git
       ref: main
+  location: ^4.4.0
 
 dev_dependencies:
   flutter_test:

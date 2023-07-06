@@ -13,6 +13,7 @@ import 'package:bolso_organizado/commons/widgets/primary_button.dart';
 import 'package:bolso_organizado/features/transaction/transaction.dart';
 import 'package:bolso_organizado/models/transaction_model.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 import '../../locator.dart';
 
@@ -40,6 +41,7 @@ class _TransactionPageState extends State<TransactionPage> with SingleTickerProv
   final _descriptionController = TextEditingController();
   final _categoryController = TextEditingController();
   final _dateController = TextEditingController();
+  final _geolocalizacao = TextEditingController();
   final _amountController = MoneyMaskedTextController(prefix: 'R\$');
 
   late final TabController _tabController;
@@ -64,6 +66,10 @@ class _TransactionPageState extends State<TransactionPage> with SingleTickerProv
   @override
   void initState() {
     super.initState();
+    getGeoLocalizacao().then((geolocalizacao) {
+      _geolocalizacao.text = geolocalizacao;
+    });
+
     _amountController.updateValue(widget.transaction?.value ?? 0);
 
     _descriptionController.text = widget.transaction?.description ?? '';
@@ -114,6 +120,35 @@ class _TransactionPageState extends State<TransactionPage> with SingleTickerProv
     _dateController.dispose();
     super.dispose();
   }
+
+  Future<String> getGeoLocalizacao() async {
+    Location location = Location();
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
+    LocationData locationData;
+
+    serviceEnabled = await location.serviceEnabled();
+
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) Future.value("");
+    }
+
+    permissionGranted = await location.hasPermission();
+
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+
+      if (permissionGranted != PermissionStatus.granted){
+        Future.value("");
+      }
+    }
+
+    locationData = await location.getLocation();
+
+    return "${locationData.latitude} : ${locationData.longitude}";
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -283,6 +318,19 @@ class _TransactionPageState extends State<TransactionPage> with SingleTickerProv
                               _newDate != null ? _newDate!.toText : _date;
                         },
                       ),
+                      CustomTextFormField(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          controller: _geolocalizacao,
+                          readOnly: true,
+                          labelText: "Localização",
+                        hintText: "Digite a localização",
+                          validator: (value) {
+                            if (_geolocalizacao.text.isEmpty) {
+                              return 'Esse campo não pode ser vazio.';
+                            }
+                            return null;
+                          },
+                      ),
                       const SizedBox(height: 16.0),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -300,6 +348,7 @@ class _TransactionPageState extends State<TransactionPage> with SingleTickerProv
                               final now = DateTime.now().millisecondsSinceEpoch;
 
                               final newTransaction = TransactionModel(
+                                localization: _geolocalizacao.text,
                                 category: _categoryController.text,
                                 description: _descriptionController.text,
                                 value: _tabController.index == 1
